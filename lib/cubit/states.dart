@@ -35,11 +35,7 @@ class GetGoogleAuthErrorState extends SocialMediaStates
 
 class GetPhoneAuthLoadingState extends SocialMediaStates{}
 class GetPhoneAuthSuccessState extends SocialMediaStates
-{
-  final PhoneAuthState phoneAuthState;
-
-  GetPhoneAuthSuccessState(this.phoneAuthState);
-}
+{}
 class GetPhoneAuthErrorState extends SocialMediaStates
 {
   final String error;
@@ -49,4 +45,8 @@ class GetPhoneAuthErrorState extends SocialMediaStates
 
 
 class GetOTPSuccessState extends SocialMediaStates{}
-class GetOTPErrorState extends SocialMediaStates{}
+class GetOTPErrorState extends SocialMediaStates{
+  final String error;
+
+  GetOTPErrorState(this.error);
+}
