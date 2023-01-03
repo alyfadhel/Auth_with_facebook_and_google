@@ -66,12 +66,13 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
 
   Future<void> submitPhoneNumber(String phoneNumber) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+20 1098913397',
+      phoneNumber: '+20$phoneNumber',
       timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+
     );
   }
 
@@ -83,6 +84,7 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
   void verificationFailed(FirebaseAuthException error) async {
     debugPrint('verificationFailed');
     emit(GetPhoneAuthErrorState(error.toString()));
+    debugPrint('Error: $error');
   }
 
   void codeSent(String verificationId, int? forceResendingToken) {
@@ -103,21 +105,24 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
         await signIn(credential);
   }
 
-
-
   Future<void> signIn(PhoneAuthCredential credential)async
   {
-    try{
-      await fireAuth.signInWithCredential(credential);
-      emit(GetOTPSuccessState());
-    }catch(error){
-      debugPrint(error.toString());
-      emit(GetOTPErrorState(error.toString()));
+       await fireAuth.signInWithCredential(credential).then((value)
+       {
+         emit(GetOTPSuccessState());
+       }).catchError((error)
+       {
+         debugPrint('Error: $error');
+         emit(GetOTPErrorState(error.toString()));
+       });
     }
+
+
+
   }
 
 
 
 
 
-}
+
