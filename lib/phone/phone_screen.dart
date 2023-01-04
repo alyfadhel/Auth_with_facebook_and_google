@@ -10,7 +10,7 @@ class PhoneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SocialMediaCubit,SocialMediaStates>(
       listener: (context, state) {
-        if(state is SignOutWithPhoneSuccessState){
+        if(state is LogOutWithPhoneSuccessState){
           Navigator.pop(context);
         }
       },
@@ -34,7 +34,7 @@ class PhoneScreen extends StatelessWidget {
               OutlinedButton(
                 onPressed: ()
                 {
-                  cubit.signOutWithPhone();
+                  cubit.logOutWithPhone();
                 },
                 child: Text(
                   'LogOut',

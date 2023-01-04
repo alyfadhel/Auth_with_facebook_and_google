@@ -4,7 +4,7 @@ import 'package:facebook_auth/model/user_model.dart';
 abstract class SocialMediaStates{}
 
 class InitialSocialMediaState extends SocialMediaStates{}
-
+//---------------------------------------------------------------
 class GetFacebookAuthLoadingState extends SocialMediaStates{}
 class GetFacebookAuthSuccessState extends SocialMediaStates
 {
@@ -18,20 +18,21 @@ class GetFacebookAuthErrorState extends SocialMediaStates
 
   GetFacebookAuthErrorState(this.error);
 }
+//----------------------------------------------------------------
 
-class SignOutFacebookSuccessState extends SocialMediaStates
+class LogOutFacebookSuccessState extends SocialMediaStates
 {
   final UserModel userModel;
 
-  SignOutFacebookSuccessState(this.userModel);
+  LogOutFacebookSuccessState(this.userModel);
 }
-class SignOutFacebookErrorState extends SocialMediaStates
+class LogOutFacebookErrorState extends SocialMediaStates
 {
   final String error;
 
-  SignOutFacebookErrorState(this.error);
+  LogOutFacebookErrorState(this.error);
 }
-
+//--------------------------------------------------------------------
 
 class GetGoogleAuthLoadingState extends SocialMediaStates{}
 class GetGoogleAuthSuccessState extends SocialMediaStates
@@ -46,6 +47,20 @@ class GetGoogleAuthErrorState extends SocialMediaStates
 
   GetGoogleAuthErrorState(this.error);
 }
+//---------------------------------------------------------------------
+class LogOutGoogleSuccessState extends SocialMediaStates
+{
+  final UserModel userModel;
+
+  LogOutGoogleSuccessState(this.userModel);
+}
+class LogOutGoogleErrorState extends SocialMediaStates
+{
+  final String error;
+
+  LogOutGoogleErrorState(this.error);
+}
+//---------------------------------------------------------------------
 
 class GetPhoneAuthLoadingState extends SocialMediaStates{}
 class GetPhoneAuthSuccessState extends SocialMediaStates
@@ -65,11 +80,11 @@ class GetOTPErrorState extends SocialMediaStates{
   GetOTPErrorState(this.error);
 }
 
-class SignOutWithPhoneSuccessState extends SocialMediaStates{}
-class SignOutWithPhoneErrorState extends SocialMediaStates
+class LogOutWithPhoneSuccessState extends SocialMediaStates{}
+class LogOutWithPhoneErrorState extends SocialMediaStates
 {
   final String error;
 
-  SignOutWithPhoneErrorState(this.error);
+  LogOutWithPhoneErrorState(this.error);
 
 }

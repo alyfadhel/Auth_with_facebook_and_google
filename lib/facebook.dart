@@ -11,7 +11,7 @@ class FacebookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SocialMediaCubit, SocialMediaStates>(
       listener: (context, state) {
-        if (state is SignOutFacebookSuccessState) {
+        if (state is LogOutFacebookSuccessState) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -39,7 +39,7 @@ class FacebookScreen extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () {
-                  cubit.socialSignOutWithFacebook();
+                  cubit.socialLogOutWithFacebook();
                 },
                 child: Text(
                   'LogOut',

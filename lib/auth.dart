@@ -63,7 +63,7 @@ class AuthScreen extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        cubit.socialSignWithGoogle();
+                        cubit.socialSignInWithGoogle();
                       },
                       style: const ButtonStyle(
                           elevation: MaterialStatePropertyAll(0.0),

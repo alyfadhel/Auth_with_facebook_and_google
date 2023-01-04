@@ -18,7 +18,7 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
   String? userVerificationId;
   int? userForceResendingToken;
 
-  //_______________________________SignIn with facebook__________________________
+  //_______________________________SignIn with Facebook__________________________
   Future<void> socialSignWithFacebook() async {
     emit(GetFacebookAuthLoadingState());
     final LoginResult result = await FacebookAuth.instance.login();
@@ -40,8 +40,8 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
       debugPrint(error.toString());
     });
   }
-  //_______________________________SignOut with facebook__________________________
-  Future<void>socialSignOutWithFacebook()async
+  //_______________________________LogOut with Facebook__________________________
+  Future<void>socialLogOutWithFacebook()async
   {
     final Map<String, dynamic> userData =
     await FacebookAuth.instance.getUserData(fields: 'name,email');
@@ -52,16 +52,16 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
     );
     FirebaseAuth.instance.signOut().then((value)
     {
-      emit(SignOutFacebookSuccessState(userModel));
+      emit(LogOutFacebookSuccessState(userModel));
     }).catchError((error)
     {
       debugPrint(error.toString());
-      emit(SignOutFacebookErrorState(error.toString()));
+      emit(LogOutFacebookErrorState(error.toString()));
     });
   }
 
-  //_______________________________Sign with Google______________________________
-  Future<void> socialSignWithGoogle() async {
+  //_______________________________SignIn with Google______________________________
+  Future<void> socialSignInWithGoogle() async {
     emit(GetGoogleAuthLoadingState());
     final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
     final googleSignInAccount = await googleSignIn.signIn();
@@ -77,6 +77,24 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
     }).catchError((error) {
       emit(GetGoogleAuthErrorState(error.toString()));
       debugPrint(error.toString());
+    });
+  }
+
+  //_______________________________LogOut with Google__________________________
+
+  Future<void>logOutWithGoogle()async
+  {
+    final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+    final googleSignInAccount = await googleSignIn.signIn();
+    final UserModel userModel = UserModel(
+        email: googleSignInAccount!.email, password: googleSignInAccount.id);
+    FirebaseAuth.instance.signOut().then((value)
+    {
+      emit(LogOutGoogleSuccessState(userModel));
+    }).catchError((error)
+    {
+      debugPrint(error.toString());
+      emit(LogOutGoogleErrorState(error.toString()));
     });
   }
 
@@ -137,17 +155,17 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
        });
     }
 
-//_______________________________SignOut with Phone ___________________________
+//_______________________________LogOut with Phone ___________________________
 
-  Future<void>signOutWithPhone()async
+  Future<void>logOutWithPhone()async
   {
     await FirebaseAuth.instance.signOut().then((value)
     {
-      emit(SignOutWithPhoneSuccessState());
+      emit(LogOutWithPhoneSuccessState());
     }).catchError((error)
     {
       debugPrint(error.toString());
-      emit(SignOutWithPhoneErrorState(error.toString()));
+      emit(LogOutWithPhoneErrorState(error.toString()));
     });
   }
 
