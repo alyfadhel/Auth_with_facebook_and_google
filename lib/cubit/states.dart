@@ -51,4 +51,11 @@ class GetOTPErrorState extends SocialMediaStates{
   GetOTPErrorState(this.error);
 }
 
-class SubmitOtpState extends SocialMediaCubit{}
+class SignOutWithPhoneSuccessState extends SocialMediaStates{}
+class SignOutWithPhoneErrorState extends SocialMediaStates
+{
+  final String error;
+
+  SignOutWithPhoneErrorState(this.error);
+
+}

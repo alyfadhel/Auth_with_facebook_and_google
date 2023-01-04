@@ -3,6 +3,7 @@ import 'package:facebook_auth/cubit/states.dart';
 import 'package:facebook_auth/model/facebook_user_model.dart';
 import 'package:facebook_auth/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -17,7 +18,7 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
   String? userVerificationId;
   int? userForceResendingToken;
 
-  //_______________________________Sign with facebook__________________________
+  //_______________________________SignIn with facebook__________________________
   Future<void> socialSignWithFacebook() async {
     emit(GetFacebookAuthLoadingState());
     final LoginResult result = await FacebookAuth.instance.login();
@@ -60,7 +61,7 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
     });
   }
 
-//_______________________________Sign with Phone ______________________________
+ //_______________________________SignIn with Phone ______________________________
 
   late String verificationId;
 
@@ -116,6 +117,21 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
          emit(GetOTPErrorState(error.toString()));
        });
     }
+
+//_______________________________SignOut with Phone ___________________________
+
+  Future<void>signOutWithPhone()async
+  {
+    await FirebaseAuth.instance.signOut().then((value)
+    {
+      emit(SignOutWithPhoneSuccessState());
+    }).catchError((error)
+    {
+      debugPrint(error.toString());
+      emit(SignOutWithPhoneErrorState(error.toString()));
+    });
+  }
+
 
 
 
