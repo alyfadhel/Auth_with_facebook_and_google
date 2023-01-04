@@ -40,6 +40,25 @@ class SocialMediaCubit extends Cubit<SocialMediaStates> {
       debugPrint(error.toString());
     });
   }
+  //_______________________________SignOut with facebook__________________________
+  Future<void>socialSignOutWithFacebook()async
+  {
+    final Map<String, dynamic> userData =
+    await FacebookAuth.instance.getUserData(fields: 'name,email');
+    final userDataConverted = FacebookUserModel.fromMap(userData);
+    final userModel = UserModel(
+      email: userDataConverted.email!,
+      password: userDataConverted.name!,
+    );
+    FirebaseAuth.instance.signOut().then((value)
+    {
+      emit(SignOutFacebookSuccessState(userModel));
+    }).catchError((error)
+    {
+      debugPrint(error.toString());
+      emit(SignOutFacebookErrorState(error.toString()));
+    });
+  }
 
   //_______________________________Sign with Google______________________________
   Future<void> socialSignWithGoogle() async {

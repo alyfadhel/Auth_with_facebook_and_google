@@ -19,6 +19,20 @@ class GetFacebookAuthErrorState extends SocialMediaStates
   GetFacebookAuthErrorState(this.error);
 }
 
+class SignOutFacebookSuccessState extends SocialMediaStates
+{
+  final UserModel userModel;
+
+  SignOutFacebookSuccessState(this.userModel);
+}
+class SignOutFacebookErrorState extends SocialMediaStates
+{
+  final String error;
+
+  SignOutFacebookErrorState(this.error);
+}
+
+
 class GetGoogleAuthLoadingState extends SocialMediaStates{}
 class GetGoogleAuthSuccessState extends SocialMediaStates
 {
