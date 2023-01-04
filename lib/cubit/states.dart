@@ -50,3 +50,5 @@ class GetOTPErrorState extends SocialMediaStates{
 
   GetOTPErrorState(this.error);
 }
+
+class SubmitOtpState extends SocialMediaCubit{}

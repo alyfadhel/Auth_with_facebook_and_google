@@ -41,26 +41,41 @@ class OtpScreen extends StatelessWidget {
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Pinput(
-                  controller: otpController,
-                  length: 6,
-                  keyboardType: TextInputType.number,
-                  onSubmitted: (value) {
-                    cubit.submitOtp(otpCode);
-                  },
-                  onCompleted: (code)
-                  {
-                    otpCode = code;
-                  },
-                  onChanged: (value)
-                  {
-                    debugPrint(value);
-                  },
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Pinput(
+                      controller: otpController,
+                      length: 6,
+                      keyboardType: TextInputType.number,
+                      onSubmitted: (otpCode) {
+                        cubit.submitOtp(otpCode);
+                      },
+                      onCompleted: (code) {
+                        otpCode = code.trim();
+                      },
+                      onChanged: (value) {
+                        debugPrint(value);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    OutlinedButton(
+                      onPressed: ()
+                      {
+                        cubit.submitOtp(otpCode);
+                      },
+                      child: Text(
+                        'Verify',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         );

@@ -43,11 +43,8 @@ class PhoneAuth extends StatelessWidget {
                   initialCountryCode: 'EG',
                   onSubmitted: (phoneNumber) {
                     cubit.submitPhoneNumber(phoneNumber);
+                    debugPrint('Phone: $phoneNumber');
                   },
-                  // onChanged: (value)
-                  // {
-                  //   debugPrint(value.completeNumber);
-                  // },
                 )
               ],
             ),
